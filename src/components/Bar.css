@@ -1,0 +1,51 @@
+.bar{
+    height: 200px;
+    width:2em;
+    margin: 0 1em;
+    /* margin: T R B L*/
+    /* margin: TB  RL*/
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(-30deg);
+
+}
+.side{
+    width: 100%;
+    height: 100%;;
+    position: absolute;
+    background: rgba 254, 254, 254, 0.25;
+}
+.back{
+    transform: translateZ(-4px);
+}
+
+.left{
+    transform-origin:left ;
+    transform: rotateY(-90deg);
+}
+
+.top{
+    height: 34px;
+    transform-origin:top ;
+    transform: rotateX(-90deg);
+    background: rgba (254, 254, 254, 0.10);
+}
+.bottom{
+    height: 34px;
+    transform-origin:top ;
+    background: rgba (225,0, 120, 0.4);
+    box-shadow: rgba (225,0, 120, 0.1);
+    transition: 0.5s;
+}
+
+.color-bar{
+    background-color:rgba (225,0, 120, 0.4) ;
+    box-shadow:rgba (225,0, 120, 0.1) ;
+    transition: 0.5s;
+
+}
+.input{
+    text-align: center;
+    transform: rotate(-90deg);
+    height: 25px;
+    outline: none;
+}

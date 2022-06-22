@@ -1,0 +1,23 @@
+.App{
+  text-align: center;
+}
+.frame{
+  margin:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  margin: 5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+}
+
+.card{
+  border-radius: 2em;
+  padding: 0 1em;
+  /* ----*/
+}
