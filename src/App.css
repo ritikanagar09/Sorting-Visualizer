@@ -19,5 +19,7 @@
 .card{
   border-radius: 2em;
   padding: 0 1em;
+  background-color:#818181;
+
   /* ----*/
 }
