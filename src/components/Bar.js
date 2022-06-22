@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Bar.css';
 function Bar({index,length,color,changeArray}){
 
-    const [len, setLen]=useState(length)
+    const [len, setLen]=useState(length);
+    useEffect(()=>{
+        setLen(length);
+    },[length]
+    );
     const colors=[
         ['rgba(61,90,241,0.5)','rgba(61,90,241,0.2)'],
         ['rgba(255,48,79,1)','rgba(255,48,79,0.5)'],
@@ -66,6 +70,16 @@ function Bar({index,length,color,changeArray}){
         
         
     };
+
+    const increment=(e)=>{
+        setLen(len+1);
+        changeArray(index,len);
+    }
+
+    const decrement=(e)=>{
+        setLen(len-1);
+        changeArray(index,len);
+    }
     // bcox of added bar style it added more heights to the bar 
     return(
         <>
@@ -95,13 +109,11 @@ function Bar({index,length,color,changeArray}){
                     <div className="color-bar back-color-bar" style={front_back_right_left}></div>
                 </div>
                 <div className="qantity-nav">
-                <div className="quantity-button quantity-up" style={quantity}>
-                {' '}
-                +{' '}
+                <div className="quantity-button quantity-up" style={quantity} onClick={increment} >
+                    +
                 </div>
-                <div className="quantity-button quantity-down" style={quantity}>
-                {' '}
-                -{' '}
+                <div className="quantity-button quantity-down" style={quantity} onClick={decrement}>
+                    -
                 </div>
                 </div>
             </div>

@@ -1,4 +1,7 @@
 import React,{Component} from 'react';
+
+// Icons 
+import Play from '@material-ui/icons/PlayCircleOutlineRounded';
 import Bar from './components/Bar';
 import './App.css';
 // props--> properties that are passed in
@@ -7,8 +10,8 @@ class App extends Component{
         array: [],
         arraySteps: [],
         colorKey:[],
-        colrSteps:[],
-        currSteps:0,
+        colorSteps:[],
+        currentSteps:0,
         count:10,
         delay:100,
         algorithm:'',
@@ -62,7 +65,22 @@ class App extends Component{
            color = {0} 
            changeArray ={this.changeArray}
            />
+
+            
+
+
         )); 
+        
+        // let playButton;
+        // if(this.state.arraySteps.length===this.state.currentStep){
+        //     playButton=(
+        //        <button className="controller">
+                
+                
+
+        //        </button>
+        //     )
+        // }
 
         // h1 cannot include the div/components
         return (
