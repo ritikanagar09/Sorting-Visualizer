@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './Bar.css';
-function Bar({index,length,color}){
+function Bar({index,length,color,changeArray}){
 
     const [len, setLen]=useState(length)
     const colors=[
@@ -9,9 +9,9 @@ function Bar({index,length,color}){
         ['rgba(131,232,90,0.5)','rgba(131,232,90,0.2)'],
 
     ];
-    const barStyle = {
-        height : length,
-    };
+    // const barStyle = {
+    //     height : length,
+    // };
 
     const inputStyle={
         position: 'relative',
@@ -42,26 +42,34 @@ function Bar({index,length,color}){
         boxShadow:`5px 5px 50px 5px ${colors[color][1]}`,
         transition:'0.3s'
     }
+    const quantity ={
+        position: 'relative',
+        top: 225,
+    }
 
     const handleChange=(e)=>{
         let val= e.target.value;
         if(val===''){
             setLen(0);
+            changeArray(index,0)
         }else{
             val=parseInt(val);
             if(val>200){
                 setLen(200);
+                changeArray(index,200)
             }else{
                 setLen(val);
+                changeArray(index,val);
             }
             
         }
-        setLen(parseInt(e.target.value))
         
-    }
+        
+    };
+    // bcox of added bar style it added more heights to the bar 
     return(
         <>
-            <div className = "bar" style={barStyle}>
+            <div className = "bar">
                 <div className="side top"></div>
                 <div className="side bottom" style={bottom}></div>
                 <div className="side right" >
@@ -71,7 +79,8 @@ function Bar({index,length,color}){
                     <div className="color-bar left-color-bar" style={front_back_right_left}></div>
                 </div>
                 <div className="side front" >
-                    <div className="color-bar front-color-bar" style={front_back_right_left}></div>
+                    <div className="color-bar front-color-bar" 
+                    style={front_back_right_left}>
                     <input type="number" 
                     length={length} 
                     style= {inputStyle} 
@@ -79,9 +88,21 @@ function Bar({index,length,color}){
                     value={len} 
                     onChange={handleChange}
                     />
+                    </div>
+                   
                 </div>
                 <div className="side back">
                     <div className="color-bar back-color-bar" style={front_back_right_left}></div>
+                </div>
+                <div className="qantity-nav">
+                <div className="quantity-button quantity-up" style={quantity}>
+                {' '}
+                +{' '}
+                </div>
+                <div className="quantity-button quantity-down" style={quantity}>
+                {' '}
+                -{' '}
+                </div>
                 </div>
             </div>
         </>

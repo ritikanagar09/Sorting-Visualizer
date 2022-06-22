@@ -38,9 +38,20 @@ class App extends Component{
     //   console.log(temp)
     this.setState({
         array:temp,
-        arraySteps: [temp]
+        arraySteps: [temp],
+        currentStep:0,
     });
     };
+    changeArray=(index,value)=>{
+        let arr = this.state.array;
+        arr[index]= value;
+        this.setState({
+            array:arr,
+            arraySteps:[arr],
+            currentStep:0
+        })
+
+    }
     render(){
         let bars = this.state.array.map((value,index)=>(
            
@@ -49,6 +60,7 @@ class App extends Component{
            index = {index}
            length = {value}
            color = {0} 
+           changeArray ={this.changeArray}
            />
         )); 
 
