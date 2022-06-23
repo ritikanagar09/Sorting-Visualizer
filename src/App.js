@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-
+//
+import BubbleSort from './algorithms/BS';
 // Icons 
 import Play from '@material-ui/icons/PlayCircleFilledOutlined';
 import  Forward from '@material-ui/icons/SkipNextRounded';
@@ -17,16 +18,34 @@ class App extends Component{
         currentSteps:0,
         count:10,
         delay:100,
-        algorithm:'',
+        algorithm:'Bubble Sort',
         timeouts: [],
     
     };
 
+    ALGORITHMS = {
+        'Bubble Sort': BubbleSort,
+    }
 
 // function for calling the genrate randam array
     componentDidMount(){
         this.generateArray();
-;    }
+   }
+   generateSteps = () =>{
+    let array = this.state.array.slice();
+    let steps = this.state.arraySteps.slice();
+    let colorSteps = this.state.colorSteps.slice();
+    this.ALGORITHMS[this.state.algorithm](array, 0, steps, colorSteps);
+    this.setState({
+        arraySteps: array,
+        colorSteps:colorSteps
+    })
+   }
+
+   // function to generate steps 
+//    generateSteps=()=>{
+//     let array
+//    }
 
     // function to generate an random array
     generateRandomNum=(min, max)=>{
@@ -95,7 +114,7 @@ class App extends Component{
                 <div className="frame">
                     <div className="barsDiv container card "> {bars}</div>
                 </div>
-                <div className="control-panel">
+                <div className="control-pannel">
                 <div className='control-buttons'>
                     <button className="controller">
                         <Backward/>
