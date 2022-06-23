@@ -9,6 +9,12 @@ import  RotateLeft  from '@material-ui/icons/RotateLeft';
 import Bar from './components/Bar';
 import './App.css';
 // props--> properties that are passed in
+
+
+
+// Issues facing
+// 1. Color wala 
+// 2. sort hone ke baad rukta nhi h
 class App extends Component{
     state={// state is an object
         array: [],
@@ -16,8 +22,8 @@ class App extends Component{
         colorKey:[],
         colorSteps:[],
         currentSteps:0,
-        count:10,
-        delay:100,
+        count:20,
+        delay:10,
         algorithm:'Bubble Sort',
         timeouts: [],
     
@@ -31,29 +37,41 @@ class App extends Component{
     componentDidMount(){
         this.generateArray();
    }
+   // function to generate steps 
    generateSteps = () =>{
     let array = this.state.array.slice();
     let steps = this.state.arraySteps.slice();
     let colorSteps = this.state.colorSteps.slice();
     this.ALGORITHMS[this.state.algorithm](array, 0, steps, colorSteps);
     this.setState({
-        arraySteps: array,
+        arraySteps: steps,
         colorSteps:colorSteps
     })
    }
+   clearTimeouts = ()=>{
+    this.state.timeouts.forEach((timeout)=>clearTimeout(timeout));
+    this.setState({
+        timeouts:[]
+    });
+   }
 
-   // function to generate steps 
-//    generateSteps=()=>{
-//     let array
-//    }
+    clearColorKey=()=>{
+        let blankKey= new Array(this.state.count).fill(0);
+        this.setState({
+            colorKey:blankKey,
+            colorSteps:[blankKey]
+        })
+    }
 
     // function to generate an random array
     generateRandomNum=(min, max)=>{
         return Math.floor(Math.random() * (max-min)+min); //more than the minimum value and less than the max 
-    }
+    };
     generateArray=() =>{
+        this.clearTimeouts();
+        this.clearColorKey()
         const count=this.state.count;
-        let temp =[];// empty array
+        const temp =[];// empty array
 
         for(let i=0 ;i<count;i++){
   
@@ -65,6 +83,8 @@ class App extends Component{
         array:temp,
         arraySteps: [temp],
         currentStep:0,
+    },()=>{
+        this.generateSteps();
     });
     };
     changeArray=(index,value)=>{
@@ -74,9 +94,63 @@ class App extends Component{
             array:arr,
             arraySteps:[arr],
             currentStep:0
-        })
+        },
+        ()=>{
+            this.generateSteps();
+        } 
+        );
 
-    }
+    };
+
+    previousStep=()=>{
+        let currentStep= this.state.currentSteps;
+        if(currentStep===0) return;
+        currentStep -=1;
+        this.setState({
+            currentStep:currentStep,
+            array:this.state.arraySteps[currentStep],
+            colorKey:this.state.colorSteps[currentStep]
+        });
+    };
+    nextstep =()=>{
+        
+        let currentStep= this.state.currentSteps;
+        if(currentStep>=this.state.arraySteps.length-1) return;
+        currentStep +=1;
+        this.setState({
+            currentStep:currentStep,
+            array:this.state.arraySteps[currentStep],
+            colorKey:this.state.colorSteps[currentStep]
+        });
+    };
+    start =()=>{
+        let steps = this.state.arraySteps;
+        let colorSteps= this.state.colorSteps;
+        this.clearTimeouts();
+
+
+        let timeouts = [];
+        let i =0;
+        while(i<steps.length - this.state.currentSteps){
+            let timeout = setTimeout(()=>{
+                let currentStep = this.state.currentSteps;
+                this.setState({
+                    array: steps[currentStep],
+                    colorKey: colorSteps[currentStep],
+                    currentStep: currentStep+1,
+
+                });
+                timeouts.push(timeout);
+                }, this.state.delay*i);
+                i++;
+                
+        }
+
+        this.setState({
+            timeouts:timeouts,
+        });
+
+    };
     render(){
         let bars = this.state.array.map((value,index)=>(
            
@@ -84,7 +158,7 @@ class App extends Component{
            key = {index} 
            index = {index}
            length = {value}
-           color = {0} 
+           color =  {this.state.colorKey[index]}
            changeArray ={this.changeArray}
            />
 
@@ -96,13 +170,13 @@ class App extends Component{
         let playButton;
         if(this.state.arraySteps.length===this.state.currentStep){
             playButton=(
-               <button className="controller">
+               <button className="controller" onClick={this.generateArray}>
                <RotateLeft/>
                </button>
-            )
+            );
         }else{
             playButton=(
-                <button className="controller">
+                <button className="controller" onClick={this.start}>
                     <Play/>
                 </button>
             )
@@ -116,11 +190,11 @@ class App extends Component{
                 </div>
                 <div className="control-pannel">
                 <div className='control-buttons'>
-                    <button className="controller">
+                    <button className="controller" onClick={this.previousStep}>
                         <Backward/>
                     </button>
                         {playButton}
-                    <button className="controller">
+                    <button className="controller" onClick={this.nextstep}>
                         <Forward/>
                     </button>
                     </div> 

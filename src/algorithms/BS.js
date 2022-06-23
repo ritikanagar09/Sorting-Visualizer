@@ -12,16 +12,16 @@ for(let i =0 ; i<array.length-1; i++){
         colorKey[j+1]=1;
         colorSteps.push(colorKey.slice());
         colorKey[j]=0;//  we are done reviweing them
-        colorKey[j+1]=0;
+        colorKey[j+1]=0;// removing the colors 
         
     }
-    colorKey[arraySteps.lenght-1-i]=2;
+    colorKey[arraySteps.lenght-1-i]=2;// after the swapping..setting the last elem to be 2
     arraySteps.push(array.slice());
     colorSteps.push(colorKey.slice());
 
 
 }
-colorSteps[colorSteps.lenght-1]= new Array(Array.length.fill(2));
+colorSteps[colorSteps.lenght-1]= new Array(array.length).fill(2);// setting color to green
 return;
 
 };
