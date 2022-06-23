@@ -1,7 +1,10 @@
 import React,{Component} from 'react';
 
 // Icons 
-import Play from '@material-ui/icons/PlayCircleOutlineRounded';
+import Play from '@material-ui/icons/PlayCircleFilledOutlined';
+import  Forward from '@material-ui/icons/SkipNextRounded';
+import Backward from '@material-ui/icons/SkipPreviousRounded';  
+import  RotateLeft  from '@material-ui/icons/RotateLeft';
 import Bar from './components/Bar';
 import './App.css';
 // props--> properties that are passed in
@@ -71,26 +74,42 @@ class App extends Component{
 
         )); 
         
-        // let playButton;
-        // if(this.state.arraySteps.length===this.state.currentStep){
-        //     playButton=(
-        //        <button className="controller">
-                
-                
-
-        //        </button>
-        //     )
-        // }
+        let playButton;
+        if(this.state.arraySteps.length===this.state.currentStep){
+            playButton=(
+               <button className="controller">
+               <RotateLeft/>
+               </button>
+            )
+        }else{
+            playButton=(
+                <button className="controller">
+                    <Play/>
+                </button>
+            )
+        }
 
         // h1 cannot include the div/components
         return (
             <div className='app'>
                 <div className="frame">
                     <div className="barsDiv container card "> {bars}</div>
-                <div className="control-panel"></div>
+                </div>
+                <div className="control-panel">
+                <div className='control-buttons'>
+                    <button className="controller">
+                        <Backward/>
+                    </button>
+                        {playButton}
+                    <button className="controller">
+                        <Forward/>
+                    </button>
+                    </div> 
+
+                </div>
                 <div className="pannel"></div>
                 </div>
-            </div>
+            
       );
     }
 }
